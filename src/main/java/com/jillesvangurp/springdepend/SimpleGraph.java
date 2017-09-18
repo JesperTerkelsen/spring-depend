@@ -128,17 +128,19 @@ public class SimpleGraph<T> extends LinkedHashMap<T, SimpleGraph<T>> {
             }
             if(maybeParent.isPresent()) {
                 T parentNode = maybeParent.get();
-                createRelations.add(cypherRelation(nodeNameFunction.apply(parentNode), dependencyLabel, nodeName));
+                createRelations.add(cypherRelation(nodeNameFunction.apply(parentNode), nodeLabel, dependencyLabel, nodeName));
             }
             subNodes.toCypher(Optional.of(node),nodeLabel,dependencyLabel,nodeNameFunction,seen,createNodes,createRelations);
         });
     }
 
-    private static String cypherNode(String name, String label) {
-        return "CREATE ("+name+":"+label+" {name:\""+name+"\"})";
+    private static String cypherNode(String name, String nodeLabel) {
+        return "CREATE ("+name+":"+nodeLabel+" {name:\""+name+"\"}) RETURN "+name+":"+nodeLabel+"";
     }
 
-    private static String cypherRelation(String n1, String label, String n2) {
-        return "CREATE ("+n1+")-[:"+label+"]->("+n2+")";
+    private static String cypherRelation(String n1, String nodeLabel, String dependencyLabel, String n2) {
+        return "MATCH ("+n1+":"+nodeLabel+"),("+n2+":"+nodeLabel+") "
+                + "WHERE "+n1+".name = '"+n1+"' AND "+n2+".name = '"+n2+"' "
+                + "CREATE ("+n1+")-[:"+dependencyLabel+"]->("+n2+")";
     }
 }
