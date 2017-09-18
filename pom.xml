@@ -25,7 +25,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jillesvangurp</groupId>
     <artifactId>spring-depend</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3-ts1</version>
 
     <name>Spring-Depend</name>
     <description>A tool for generating a spring bean dependency graph</description>
@@ -301,19 +301,21 @@
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <version>1.7.22</version>
+            <scope>test</scope>
         </dependency>
         <!-- slf4j replacement for log4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
             <version>1.7.22</version>
+            <scope>test</scope>
         </dependency>
         <!-- redirect java.utils.Logging to slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
             <version>1.7.22</version>
+            <scope>test</scope>
         </dependency>
-             
     </dependencies>
 </project>
